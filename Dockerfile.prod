@@ -1,0 +1,33 @@
+# Use an official Python runtime as a parent image
+FROM python:3.8-slim-buster as builder
+
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# Set work directory
+WORKDIR /code
+
+# Install dependencies
+COPY requirements.txt /code/
+RUN pip install --upgrade pip
+RUN pip install --user -r requirements.txt
+
+# --------------------
+# Start new stage
+# --------------------
+FROM python:3.8-slim-buster
+
+WORKDIR /code
+
+# Copy user libraries from builder
+COPY --from=builder /root/.local /root/.local
+
+# Make sure scripts in .local are usable:
+ENV PATH=/root/.local/bin:$PATH
+
+# Copy project
+COPY . /code/
+
+# Run gunicorn
+CMD gunicorn myproject.wsgi:application --bind 0.0.0.0:8000
