@@ -87,13 +87,6 @@ def task():
 
 
 def recommend(request):
-    # model = GamesModel(games_model, genres_model, task)
-
-    # cdir = os.getcwd()
-    # dir = os.path.join(cdir, 'server/models')
-    # filepath = os.path.join(dir, 'model_weights')
-    # model.load_weights(filepath)
-
     # Get the current working directory
     cdir = os.getcwd()
     dir = os.path.join(cdir, 'server/models')
@@ -115,7 +108,8 @@ def recommend(request):
         games_tensor().batch(4096).map(lambda title: (title, model.games_model(title))))
 
     # Get some recommendations.
-    _, titles = index(np.array(["['Adventure', 'RPG', 'Turn Based Strategy']"]))
+    genre = request.GET.get('genre', "['Adventure', 'RPG']")
+    _, titles = index(np.array([genre]))
     # print(f"Top 3 recommendations for Adventure, RPG and Turn Based Strategy: {list(set(list(np.array(titles[0, :10]))))[:3]}")
     game_list = list(set(list(np.array(titles[0, :10]))))[:3]
     response = {
