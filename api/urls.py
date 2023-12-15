@@ -20,4 +20,5 @@ import server.views as views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.info, name='info'),
+    path('recommend/', views.recommend, name='recommend'),
 ]
