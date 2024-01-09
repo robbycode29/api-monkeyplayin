@@ -111,7 +111,7 @@ def recommend(request):
     genre = request.GET.get('genre', "['Adventure', 'RPG']")
     _, titles = index(np.array([genre]))
     # print(f"Top 3 recommendations for Adventure, RPG and Turn Based Strategy: {list(set(list(np.array(titles[0, :10]))))[:3]}")
-    game_list = list(set(list(np.array(titles[0, :10]))))[:3]
+    game_list = list(set(list(np.array(titles[0, :30]))))[:20]
     response = {
         'games': str(game_list)
     }
