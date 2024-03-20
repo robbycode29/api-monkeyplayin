@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: pdi-service
+  name: mnky-service
 spec:
   selector:
-    app: pdi
+    app: mnky
   ports:
     - protocol: TCP
       port: 80

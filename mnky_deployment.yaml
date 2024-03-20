@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: pdi-deployment
+  name: mnky-deployment
   labels:
-    app: pdi
+    app: mnky
 spec:
   replicas: 6
   selector:
     matchLabels:
-      app: pdi
+      app: mnky
   template:
     metadata:
       labels:
-        app: pdi
+        app: mnky
     spec:
       containers:
-      - name: pdi
+      - name: mnky
         image: robbycode29/api-monkeyplayin
         ports:
         - containerPort: 80
