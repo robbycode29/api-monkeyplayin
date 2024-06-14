@@ -5,7 +5,7 @@ metadata:
   labels:
     app: mnky
 spec:
-  replicas: 6
+  replicas: 5
   selector:
     matchLabels:
       app: mnky
